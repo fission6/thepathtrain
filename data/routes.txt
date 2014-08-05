@@ -1,0 +1,6 @@
+agency_id,route_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color
+151,859,"PATH","Hoboken - 33rd Street","",2,http://www.panynj.gov/path/pdf/path-map-schedule.pdf,4d92fb,000000
+151,860,"PATH","Hoboken - World Trade Center","",2,http://www.panynj.gov/path/pdf/path-map-schedule.pdf,65c100,000000
+151,861,"PATH","Journal Square - 33rd Street","",2,http://www.panynj.gov/path/pdf/path-map-schedule.pdf,FF9900,000000
+151,862,"PATH","Newark - World Trade Center","Weekend Service Changes Through 2014: World Trade Center & Exchange Place Stations CLOSED WEEKENDS. PATH operates two lines of weekend service: Newark-Journal Sq & Journal Sq-33 Street (via Hoboken). World Trade Center & Exchange Place Stations reopen Mondays at 4:45 a.m.",2,http://www.panynj.gov/path/pdf/path-map-schedule.pdf,d93a30,ffffff
+151,1024,"PATH","Journal Square - 33rd Street (via Hoboken)","Weekend Service Changes Through 2014: World Trade Center & Exchange Place Stations CLOSED WEEKENDS. PATH operates two lines of weekend service: Newark-Journal Sq & Journal Sq-33 Street (via Hoboken). World Trade Center & Exchange Place Stations reopen Mondays at 4:45 a.m.",2,http://www.panynj.gov/path/pdf/path-map-schedule.pdf,FF9900,000000

@@ -1,0 +1,88 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+
+    </head>
+    <body>
+        <h3>thepathtrain</h3>
+        <ul id="from">
+            <li data-station-id="26722">14th Street</li>
+            <li data-station-id="26723">23rd Street</li>
+            <li data-station-id="26724">33rd Street</li>
+            <li data-station-id="26725">9th Street</li>
+            <li data-station-id="26726">Christopher Street</li>
+            <li data-station-id="26727">Exchange Place</li>
+            <li data-station-id="26728">Grove Street</li>
+            <li data-station-id="26729">Harrison</li>
+            <li data-station-id="26730">Hoboken</li>
+            <li data-station-id="26731">Journal Square</li>
+            <li data-station-id="26732">Newport</li>
+            <li data-station-id="26733">Newark Penn Station</li>
+            <li data-station-id="26734">World Trade Center</li>
+        </ul>
+        <ul id="to">
+            <li data-station-id="26722">14th Street</li>
+            <li data-station-id="26723">23rd Street</li>
+            <li data-station-id="26724">33rd Street</li>
+            <li data-station-id="26725">9th Street</li>
+            <li data-station-id="26726">Christopher Street</li>
+            <li data-station-id="26727">Exchange Place</li>
+            <li data-station-id="26728">Grove Street</li>
+            <li data-station-id="26729">Harrison</li>
+            <li data-station-id="26730">Hoboken</li>
+            <li data-station-id="26731">Journal Square</li>
+            <li data-station-id="26732">Newport</li>
+            <li data-station-id="26733">Newark Penn Station</li>
+            <li data-station-id="26734">World Trade Center</li>
+        </ul>
+        <div>
+            <ul id="times"></ul>
+        </div>
+        <script src="/static/js/underscore-min.js"></script>
+        <script src="/static/js/jquery-1.11.1.min.js"></script>
+        <script>
+            $(document).ready(function(){
+
+                var from, to;
+                var $times = $('#times');
+
+                function insertTime(time, index, list) {
+                    var start = time.arrival_time_x;
+                    var stop = time.arrival_time_y;
+                    $times.append('<li> Train Pickups: ' + start + ' Train Destination: ' + stop + '</li>');
+                }
+
+
+                function renderTimes(times) {
+                    _.each(times, insertTime);
+                }
+
+                function getTimes() {
+                    var endpoint = '/from/' + from + '/to/' + to;
+                    $.get(endpoint)
+                    .done(function(data) {
+                        renderTimes(data);
+                    });
+                }
+
+                $('#from li').click(function(){
+                    from = $(this).data('station-id');
+                    console.log(from);
+                });
+
+                $('#to li').click(function(){
+                    to = $(this).data('station-id');
+                    getTimes();
+                });
+
+            });
+        </script>
+    </body>
+</html>

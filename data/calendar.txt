@@ -1,0 +1,6 @@
+service_id,service_name,monday,tuesday,wednesday,thursday,friday,saturday,sunday,start_date,end_date
+744A1674,"Mon-Friday",1,1,1,1,1,0,0,20140126,20150101
+745A1674,"Saturday",0,0,0,0,0,1,0,20140126,20150101
+746A1674,"Sunday",0,0,0,0,0,0,1,20140126,20150101
+955A1674,"Sunday Archive",0,0,0,0,0,0,0,20140126,20150101
+954A1674,"Saturday Archive",0,0,0,0,0,0,0,20140126,20150101
