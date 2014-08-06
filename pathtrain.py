@@ -1,19 +1,19 @@
 from flask import Flask, render_template, Response
 app = Flask(__name__)
 
-from data_import import times
+from data_import import times, stations
 
-@app.route('/from/<int:from_id>/to/<int:to_id>/')
-def hello(from_id, to_id):
+@app.route('/from/<int:from_id>/to/<int:to_id>/on/<service_id>/')
+def schedule(from_id, to_id, service_id):
 
     if from_id and to_id:
-        times_json = times(from_id, to_id)
+        times_json = times(from_id, to_id, service_id)
         return Response(times_json, mimetype='application/json')
 
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', stations=stations)
 
 if __name__ == "__main__":
     app.debug = True

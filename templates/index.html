@@ -1,88 +1,184 @@
 <!doctype html>
 <html class="no-js" lang="">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+    <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+    <link rel="stylesheet" href="/static/pure/pure-min.css">
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/static/pure/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]>
+    <!-->
+    <link rel="stylesheet" href="/static/pure/grids-responsive-min.css">
+    <!--<![endif]-->
 
-    </head>
-    <body>
-        <h3>thepathtrain</h3>
-        <ul id="from">
-            <li data-station-id="26722">14th Street</li>
-            <li data-station-id="26723">23rd Street</li>
-            <li data-station-id="26724">33rd Street</li>
-            <li data-station-id="26725">9th Street</li>
-            <li data-station-id="26726">Christopher Street</li>
-            <li data-station-id="26727">Exchange Place</li>
-            <li data-station-id="26728">Grove Street</li>
-            <li data-station-id="26729">Harrison</li>
-            <li data-station-id="26730">Hoboken</li>
-            <li data-station-id="26731">Journal Square</li>
-            <li data-station-id="26732">Newport</li>
-            <li data-station-id="26733">Newark Penn Station</li>
-            <li data-station-id="26734">World Trade Center</li>
-        </ul>
-        <ul id="to">
-            <li data-station-id="26722">14th Street</li>
-            <li data-station-id="26723">23rd Street</li>
-            <li data-station-id="26724">33rd Street</li>
-            <li data-station-id="26725">9th Street</li>
-            <li data-station-id="26726">Christopher Street</li>
-            <li data-station-id="26727">Exchange Place</li>
-            <li data-station-id="26728">Grove Street</li>
-            <li data-station-id="26729">Harrison</li>
-            <li data-station-id="26730">Hoboken</li>
-            <li data-station-id="26731">Journal Square</li>
-            <li data-station-id="26732">Newport</li>
-            <li data-station-id="26733">Newark Penn Station</li>
-            <li data-station-id="26734">World Trade Center</li>
-        </ul>
-        <div>
-            <ul id="times"></ul>
+    <style>
+        ul.options {
+            list-style-type: none;
+        }
+
+        ul.options li {
+            margin: 5px 0;
+        }
+
+        .button-success,
+        .button-error,
+        .button-warning,
+        .button-secondary {
+            color: white;
+            border-radius: 4px;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+        }
+
+        .button-success {
+            background: rgb(28, 184, 65); /* this is a green */
+        }
+
+        .button-error {
+            background: rgb(202, 60, 60); /* this is a maroon */
+        }
+
+        .button-warning {
+            background: rgb(223, 117, 20); /* this is an orange */
+        }
+
+        .button-secondary {
+            background: rgb(66, 184, 221); /* this is a light blue */
+        }
+        </style>
+</head>
+<body>
+    <div class="pure-g">
+        <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
         </div>
-        <script src="/static/js/underscore-min.js"></script>
-        <script src="/static/js/jquery-1.11.1.min.js"></script>
-        <script>
-            $(document).ready(function(){
+        <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-2-4">
+            <h3>thepathtrain</h3>
+            <div id="day">
+                <h3>Choose Day</h3>
+                <ul class="options">
+                    <li data-service-id="744A1674">
+                        <button class="button-secondary pure-button">Mon-Friday</button>
+                    </li>
+                    <li data-service-id="745A1674">
+                        <button class="button-secondary pure-button">Saturday</button>
+                    </li>
+                    <li data-service-id="746A1674">
+                        <button class="button-secondary pure-button">Sunday</button>
+                    </li>
+                </ul>
+            </div>
+            <div id="from">
+                <h3>Choose From</h3>
+                <ul class="options">
+                    {% for station in stations %}
+                    <li data-station-id="{{ station.stop_id }}">
+                        <button class="button-secondary pure-button">{{ station.stop_name }}</button>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div id="to">
+                <h3>Choose Destination</h3>
+                <ul id="to" class="options">
+                    {% for station in stations %}
+                    <li data-station-id="{{ station.stop_id }}">
+                        <button class="button-secondary pure-button">{{ station.stop_name }}</button>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div id="results">
+                <table class="pure-table">
+                    <thead>
+                        <tr>
+                            <th>Start</th>
+                            <th>Stop</th>
+                            <th>Train</th>
+                        </tr>
+                    </thead>
 
-                var from, to;
-                var $times = $('#times');
+                    <tbody id="times">
 
-                function insertTime(time, index, list) {
-                    var start = time.arrival_time_x;
-                    var stop = time.arrival_time_y;
-                    $times.append('<li> Train Pickups: ' + start + ' Train Destination: ' + stop + '</li>');
-                }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+        </div>
+    </div>
 
 
-                function renderTimes(times) {
-                    _.each(times, insertTime);
-                }
+    <script src="/static/js/underscore-min.js"></script>
+    <script src="/static/js/jquery-1.11.1.min.js"></script>
+    <script src="/static/js/moment/moment.min.js"></script>
+    <script>
+        $(document).ready(function(){
 
-                function getTimes() {
-                    var endpoint = '/from/' + from + '/to/' + to;
-                    $.get(endpoint)
-                    .done(function(data) {
-                        renderTimes(data);
-                    });
-                }
+            var from, to, day;
+            var $times = $('#times');
+            var record_html = '<tr><td>{0}</td><td>{1}</td><td>{2}</td></tr>';
+            var time_parse = 'HH:mm:ss';
+            var time_format = 'hh:mm:ss A';
 
-                $('#from li').click(function(){
-                    from = $(this).data('station-id');
-                    console.log(from);
+            function convertTime(time) {
+                return moment(time, 'HH:mm:ss').format('hh:mm:ss A')
+            }
+
+            function insertTime(time, index, list) {
+                var start = convertTime(time.arrival_time_x);
+                var stop = convertTime(time.arrival_time_y);
+                var service = time.service_id;
+                var trip_headsign = time.trip_headsign;
+
+                $times.append(record_html.format(start, stop, trip_headsign));
+            }
+
+            function renderTimes(times) {
+                _.each(times, insertTime);
+            }
+
+            function getTimes() {
+                var endpoint = '/from/' + from + '/to/' + to + '/on/' + day;
+                $.get(endpoint)
+                .done(function(data) {
+                    renderTimes(data);
                 });
+            }
 
-                $('#to li').click(function(){
-                    to = $(this).data('station-id');
-                    getTimes();
-                });
-
+            $('#day li').click(function(){
+                day = $(this).data('service-id');
+                console.log(day);
             });
-        </script>
-    </body>
+
+            $('#from li').click(function(){
+                from = $(this).data('station-id');
+                console.log(from);
+            });
+
+            $('#to li').click(function(){
+                to = $(this).data('station-id');
+                getTimes();
+            });
+
+        });
+    </script>
+    <script>
+        if (!String.prototype.format) {
+          String.prototype.format = function() {
+            var args = arguments;
+            return this.replace(/{(\d+)}/g, function(match, number) {
+              return typeof args[number] != 'undefined'
+                ? args[number]
+                : match
+              ;
+            });
+          };
+        }
+    </script>
+</body>
 </html>
