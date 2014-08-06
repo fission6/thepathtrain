@@ -23,7 +23,7 @@
         }
 
         ul.options li {
-            margin: 5px 0;
+            margin: 10px 0;
         }
 
         .button-success,
@@ -33,6 +33,7 @@
             color: white;
             border-radius: 4px;
             text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+            min-width: 40%;
         }
 
         .button-success {
@@ -50,16 +51,25 @@
         .button-secondary {
             background: rgb(66, 184, 221); /* this is a light blue */
         }
+
+         table.center {
+            margin-left:auto;
+            margin-right:auto;
+          }
+
         </style>
 </head>
 <body>
-    <div class="pure-g">
+    <div class="pure-g" style='text-align:center;'>
         <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
         </div>
         <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-2-4">
-            <h3>thepathtrain</h3>
+            <h3><a href="/">thepathtrain</a></h3>
             <div id="day">
                 <h3>Choose Day</h3>
+                <h5>
+                    The path trian has different times for different days, please select which day you're traveling
+                </h5>
                 <ul class="options">
                     <li data-service-id="744A1674">
                         <button class="button-secondary pure-button">Mon-Friday</button>
@@ -74,6 +84,9 @@
             </div>
             <div id="from">
                 <h3>Choose From</h3>
+                <h5>
+                    What station will you be leaving from?
+                </h5>
                 <ul class="options">
                     {% for station in stations %}
                     <li data-station-id="{{ station.stop_id }}">
@@ -83,8 +96,10 @@
                 </ul>
             </div>
             <div id="to">
-                <h3>Choose Destination</h3>
-                <ul id="to" class="options">
+                <h5>
+                    What station do you want to arrive at?
+                </h5>
+                <ul class="options">
                     {% for station in stations %}
                     <li data-station-id="{{ station.stop_id }}">
                         <button class="button-secondary pure-button">{{ station.stop_name }}</button>
@@ -93,12 +108,12 @@
                 </ul>
             </div>
             <div id="results">
-                <table class="pure-table">
+                <table class="pure-table center">
                     <thead>
                         <tr>
                             <th>Start</th>
                             <th>Stop</th>
-                            <th>Train</th>
+                            <th>Train to Look for</th>
                         </tr>
                     </thead>
 
@@ -140,6 +155,7 @@
 
             function renderTimes(times) {
                 _.each(times, insertTime);
+                $('#results').show();
             }
 
             function getTimes() {
@@ -150,17 +166,24 @@
                 });
             }
 
+            $('#from, #to, #results').hide();
+
             $('#day li').click(function(){
+                $('#day').hide();
                 day = $(this).data('service-id');
                 console.log(day);
+                $("#from").show();
             });
 
             $('#from li').click(function(){
+                $('#from').hide();
                 from = $(this).data('station-id');
                 console.log(from);
+                $('#to').show();
             });
 
             $('#to li').click(function(){
+                $('#to').hide();
                 to = $(this).data('station-id');
                 getTimes();
             });
