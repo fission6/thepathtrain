@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
-    <meta name="description" content="">
+    <title>thepathtrain.com</title>
+    <meta name="description" content="NY/NJ Path Train Time Schedule">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
@@ -64,24 +64,8 @@
         <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
         </div>
         <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-2-4">
-            <h3><a href="/">thepathtrain</a></h3>
-            <div id="day">
-                <h3>Choose Day</h3>
-                <h5>
-                    The path trian has different times for different days, please select which day you're traveling
-                </h5>
-                <ul class="options">
-                    <li data-service-id="744A1674">
-                        <button class="button-secondary pure-button">Mon-Friday</button>
-                    </li>
-                    <li data-service-id="745A1674">
-                        <button class="button-secondary pure-button">Saturday</button>
-                    </li>
-                    <li data-service-id="746A1674">
-                        <button class="button-secondary pure-button">Sunday</button>
-                    </li>
-                </ul>
-            </div>
+            <h3><a href="/">thepathtrain.com</a></h3>
+            <h5>Find times for NY/NJ Path train</h5>
             <div id="from">
                 <h3>Choose From</h3>
                 <h5>
@@ -95,7 +79,8 @@
                     {% endfor %}
                 </ul>
             </div>
-            <div id="to">
+            <div id="to" style="display:none;">
+                <h3>Choose To</h3>
                 <h5>
                     What station do you want to arrive at?
                 </h5>
@@ -107,7 +92,7 @@
                     {% endfor %}
                 </ul>
             </div>
-            <div id="results">
+            <div id="results" style="display:none;">
                 <table class="pure-table center">
                     <thead>
                         <tr>
@@ -159,14 +144,13 @@
             }
 
             function getTimes() {
-                var endpoint = '/from/' + from + '/to/' + to + '/on/' + day;
+                var endpoint = '/from/' + from + '/to/' + to + '/';
                 $.get(endpoint)
                 .done(function(data) {
                     renderTimes(data);
                 });
             }
 
-            $('#from, #to, #results').hide();
 
             $('#day li').click(function(){
                 $('#day').hide();

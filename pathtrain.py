@@ -3,11 +3,11 @@ app = Flask(__name__)
 
 from data_import import times, stations
 
-@app.route('/from/<int:from_id>/to/<int:to_id>/on/<service_id>/')
-def schedule(from_id, to_id, service_id):
+@app.route('/from/<int:from_id>/to/<int:to_id>/')
+def schedule(from_id, to_id):
 
     if from_id and to_id:
-        times_json = times(from_id, to_id, service_id)
+        times_json = times(from_id, to_id)
         return Response(times_json, mimetype='application/json')
 
 
